@@ -8,14 +8,8 @@ name: ExScim Client CI
 on:
   push:
     branches: [ "main" ]
-    paths:
-      - 'ex_scim_client/**'
-      - '.github/workflows/ex_scim_client.yml'
   pull_request:
     branches: [ "main" ]
-    paths:
-      - 'ex_scim_client/**'
-      - '.github/workflows/ex_scim_client.yml'
 
 permissions:
   contents: read
@@ -38,20 +32,17 @@ jobs:
         uses: actions/cache@v4
         with:
           path: |
-            ex_scim_client/deps
-            ex_scim_client/_build
-          key: ${{ runner.os }}-mix-ex_scim_client-${{ hashFiles('ex_scim_client/mix.lock') }}
+            deps
+            _build
+          key: ${{ runner.os }}-mix-ex_scim_client-${{ hashFiles('mix.lock') }}
           restore-keys: |
             ${{ runner.os }}-mix-ex_scim_client-
-    
+
       - name: Install dependencies
-        working-directory: ex_scim_client
         run: mix deps.get
-    
+
       - name: Compile project
-        working-directory: ex_scim_client
         run: MIX_ENV=test mix compile --warnings-as-errors
-    
+
       - name: Run tests
-        working-directory: ex_scim_client
         run: mix test

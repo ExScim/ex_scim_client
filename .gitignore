@@ -17,7 +17,7 @@ erl_crash.dump
 *.ez
 
 # Ignore package tarball (built via "mix hex.build").
-ex_scim_client-*.tar
+ex_scim-*.tar
 
 # Temporary files, for example, from tests.
 /tmp/
@@ -25,6 +25,7 @@ ex_scim_client-*.tar
 # Devenv
 .devenv*
 devenv.local.nix
+devenv.local.yaml
 
 # direnv
 .direnv

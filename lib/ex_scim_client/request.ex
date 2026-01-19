@@ -355,7 +355,11 @@ defmodule ExScimClient.Request do
     try do
       with request <- Req.new(req),
            {:ok, response} <- Req.request(request) do
-        {:ok, response.body}
+        if response.status >= 200 and response.status < 300 do
+          {:ok, response.body}
+        else
+          {:error, %{status: response.status, body: response.body}}
+        end
       else
         {:error, %Req.TransportError{reason: reason}} -> {:error, reason}
         error -> {:error, error}
